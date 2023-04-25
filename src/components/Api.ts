@@ -1,7 +1,4 @@
-// api.ts
-import axios from 'axios';
-
-export interface Question {
+interface Question {
   category: string;
   type: string;
   difficulty: string;
@@ -10,7 +7,4 @@ export interface Question {
   incorrect_answers: string[];
 }
 
-export async function getTriviaQuestion(): Promise<Question> {
-  const response = await axios.get('https://opentdb.com/api.php?amount=1');
-  return response.data.results[0];
-}
+export default Question;
