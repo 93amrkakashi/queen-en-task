@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Question from "./components/Api";
+import Question from "./components/interfaces/interface";
 import "./App.css";
+import NavBar from "./components/layouts/NavBar";
 
+// URL for API call
 const API_URL = "https://opentdb.com/api.php?amount=1";
 
 function App() {
+  // State variables using useState hook
   const [question, setQuestion] = useState<Question | null>(null);
   const [userAnswer, setUserAnswer] = useState("");
   const [answer, setAnswer] = useState<String | null>(null);
@@ -13,10 +16,12 @@ function App() {
   const [resultMessage, setResultMessage] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(true);
 
+  // useEffect hook to fetch question when component mounts
   useEffect(() => {
     fetchQuestion();
   }, []);
 
+  // Function to fetch a question from API
   const fetchQuestion = async () => {
     try {
       const res = await axios.get(API_URL);
@@ -26,10 +31,12 @@ function App() {
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Checking if user's answer is correct or not and displaying message accordingly
     if (userAnswer === question?.correct_answer) {
-      setResultMessage("Correct!😀");
+      setResultMessage("Correct!😊");
     } else {
       setResultMessage("Incorrect!☹️");
     }
@@ -38,37 +45,29 @@ function App() {
     setAnswer(question!.correct_answer);
   };
 
+  // Function to handle clicking on "Next question" button
   const handleNextQuestion = () => {
     setShowResult(false);
     setUserAnswer("");
     fetchQuestion();
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
     <div className={isDarkMode ? "App dark-mode" : "App light-mode"}>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container d-flex justify-content-between align-items-center">
-          <a className="navbar-brand" href="/">
-            Trivia Game
-          </a>
-          <button onClick={toggleDarkMode} className="btn btn-secondary">
-            {isDarkMode ? "🌞" : "🌙"}
-          </button>
-        </div>
-      </nav>
+      {/* navbar component */}
+      <NavBar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+
       <div className="container my-4">
         {question ? (
           <div className="row">
             <div className="col-sm-12">
+              {/* Displaying the question */}
               <h2 className="border border-secondary rounded p-3 text-align-center">
                 {question.question
                   .replaceAll("&quot;", '"')
                   .replaceAll("&#039;", "'")}
               </h2>
+              {/* Handling form submission */}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
@@ -87,12 +86,14 @@ function App() {
                   Submit
                 </button>
               </form>
+              {/* Handling next question */}
               <button
                 onClick={handleNextQuestion}
                 className="btn btn-secondary w-100 mt-2"
               >
                 Next question
               </button>
+              {/* Displaying result */}
               <div className="correct">
                 {showResult && <p className="text-center">{resultMessage}</p>}
                 {showResult && (
@@ -110,6 +111,7 @@ function App() {
           </div>
         ) : (
           <div className="row">
+            {/* Loading message if question is loading */}
             <div className="col-sm-12">
               <p>Loading question...</p>
             </div>
