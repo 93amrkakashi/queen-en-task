@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');
+
 .App {
   transition: background-color 0.3s ease;
   width: 100%;
@@ -12,4 +14,18 @@
 .dark-mode {
   background-color: #333;
   color: #fff;
+}
+.correct {
+  
+  font-weight: bold;
+}
+.correct-answer {
+  color: rgb(6, 196, 6);
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-family: "Finger Paint";
+  font-weight: 400;
+  font-size: 25px;
 }

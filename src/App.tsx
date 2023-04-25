@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Question from "./components/Api";
 import "./App.css";
-import { setTimeout } from "timers/promises";
 
 const API_URL = "https://opentdb.com/api.php?amount=1";
 
 function App() {
   const [question, setQuestion] = useState<Question | null>(null);
   const [userAnswer, setUserAnswer] = useState("");
+  const [answer, setAnswer] = useState<String | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     fetchQuestion();
@@ -29,12 +29,13 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userAnswer === question?.correct_answer) {
-      setResultMessage("Correct!");
+      setResultMessage("Correct!😀");
     } else {
-      setResultMessage("Incorrect!");
+      setResultMessage("Incorrect!☹️");
     }
     setShowResult(true);
     setUserAnswer("");
+    setAnswer(question!.correct_answer);
   };
 
   const handleNextQuestion = () => {
@@ -51,7 +52,7 @@ function App() {
     <div className={isDarkMode ? "App dark-mode" : "App light-mode"}>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container d-flex justify-content-between align-items-center">
-          <a className="navbar-brand font-weight-bold" href="/">
+          <a className="navbar-brand" href="/">
             Trivia Game
           </a>
           <button onClick={toggleDarkMode} className="btn btn-secondary">
@@ -79,23 +80,32 @@ function App() {
                   />
                 </div>
                 <button
-  type="submit"
-  className="btn btn-primary"
-  disabled={!userAnswer.length}
->
-  Submit
-</button>
-              </form>
-              {showResult && <p>{resultMessage}</p>}
-              {showResult && <p>Correct answer is : {question?.correct_answer}</p>}
-              
-                <button
-                  onClick={handleNextQuestion}
-                  className="btn btn-secondary mt-4"
+                  type="submit"
+                  className="btn btn-primary w-100 mt-2 mr-2"
+                  disabled={!userAnswer.length}
                 >
-                  Next question
+                  Submit
                 </button>
-            
+              </form>
+              <button
+                onClick={handleNextQuestion}
+                className="btn btn-secondary w-100 mt-2"
+              >
+                Next question
+              </button>
+              <div className="correct">
+                {showResult && <p className="text-center">{resultMessage}</p>}
+                {showResult && (
+                  <p className="text-center">
+                    Correct answer is :{" "}
+                    <span className="correct-answer">
+                      {answer
+                        ?.replaceAll("&quot;", '"')
+                        .replaceAll("&#039;", "'")}
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         ) : (
