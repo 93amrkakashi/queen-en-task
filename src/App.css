@@ -15,12 +15,12 @@
   background-color: #333;
   color: #fff;
 }
-.trivia{
-  color: #062fe7;
+/* .trivia{
+  color: #ffffff;
 }
 .game{
-  color: #f70008;
-}
+  color: #ffffff;
+} */
 .correct {
   font-size: 35px;
   font-weight: bold;
@@ -34,5 +34,8 @@
   font-family: "Finger Paint";
   font-weight: 400;
   font-size: 25px;
+}
+label{
+  display: none;
 }
 
