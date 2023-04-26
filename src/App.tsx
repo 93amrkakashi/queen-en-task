@@ -51,7 +51,20 @@ function App() {
     setUserAnswer("");
     fetchQuestion();
   };
+  // const requestNotificationPermission = async () => {
+  //   try {
+  //     const permission = await Notification.requestPermission();
+  //     if (permission !== "granted") {
+  //       throw new Error("Permission not granted for Notifications");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   requestNotificationPermission()
+  // },[])
   return (
     <div className={isDarkMode ? "App dark-mode" : "App light-mode"}>
       {/* navbar component */}
