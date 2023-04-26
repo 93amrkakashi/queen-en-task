@@ -15,12 +15,12 @@
   background-color: #333;
   color: #fff;
 }
-/* .trivia{
-  color: #ffffff;
+.trivia{
+  color: #6288F4;
 }
 .game{
-  color: #ffffff;
-} */
+  color: #f70008;
+}
 .correct {
   font-size: 35px;
   font-weight: bold;
