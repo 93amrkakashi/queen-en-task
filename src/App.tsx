@@ -70,7 +70,6 @@ function App() {
               {/* Handling form submission */}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="answer">Your Answer</label>
                   <input
                     type="text"
                     className="form-control"
